@@ -1,0 +1,82 @@
+/* styles/globals.css */
+body {
+  background-color: #000; /* Black background */
+  color: #fff; /* White text */
+  font-family: Arial, sans-serif;
+}
+
+.navbar {
+  background-color: #ff6600; /* Orange background */
+}
+
+.nav-link, .navbar-brand {
+  color: #fff !important; /* White text for links and brand */
+}
+
+.nav-link:hover {
+  color: #000 !important; /* Black text on hover */
+}
+
+.container {
+  padding-top: 20px;
+}
+
+.header {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+
+.header h1 {
+  font-size: 3rem;
+  color: #ff6600; /* Orange color for heading */
+}
+
+.card {
+  background-color: #1a1a1a; /* Dark background for cards */
+  color: #fff;
+  border: none;
+}
+
+.card-title {
+  color: #ff6600; /* Orange color for titles */
+}
+
+.btn-primary {
+  background-color: #ff6600;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #cc5200;
+}
+
+.footer {
+  background-color: #1a1a1a;
+  color: #fff;
+  padding: 20px 0;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.footer a {
+  color: #ff6600;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+.about {
+  margin: 40px 0;
+  text-align: center;
+}
+
+.about h2 {
+  color: #ff6600;
+}
+
+.about p {
+  color: #ddd;
+}
