@@ -132,7 +132,7 @@ const Home = () => {
         <Container className="about" id="about">
           <h2>About Us</h2>
           <p>
-            Welcome to DogInfo! This platform provides comprehensive and insightful reviews on various dog breeds. Whether you're a dog lover or a potential pet owner, we have something for everyone. Our goal is to help you discover and learn more about different dog breeds through detailed reviews and information.
+            Welcome to DogInfo! This platform provides comprehensive and insightful reviews on various dog breeds. Whether you&apos;re a dog lover or a potential pet owner, we have something for everyone. Our goal is to help you discover and learn more about different dog breeds through detailed reviews and information.
           </p>
         </Container>
       );
