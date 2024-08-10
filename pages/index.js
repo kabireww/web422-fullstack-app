@@ -6,6 +6,7 @@ import PaginationComponent from '../components/Pagination';
 import { fetchDogs } from '../pages/api/api';
 import Login from '@/components/Login';
 import Register from '@/components/Register';
+import axios from 'axios';
 
 
 const Home = () => {
@@ -19,6 +20,39 @@ const Home = () => {
   const [userEmail, setUserEmail] = useState(null);
 
   useEffect(() => {
+    const fetchFavorites = async () => {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        setFavorites([]);
+        return;
+      }
+  
+      try {
+        const response = await axios.get('https://web422-backend.onrender.com/api/users/favorites', {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+  
+        if (response.status == 200) {
+          console.log(response.data.favorites);
+          const favorin = response.data.favorites;
+          setFavorites(favorin);
+          console.log(favorites);
+          
+          
+        } else {
+          setFavorites([]);  // Set an empty array if no favorites are returned
+        }
+      } catch (error) {
+        console.error('Error fetching favorites:', error);
+        setFavorites([]);  // Set an empty array in case of an error
+      }
+    };
+  
+    fetchFavorites();
+  }, []);
+  
+
+  useEffect(() => {
     if (activeTab === 'home') {
       fetchDogs((data) => {
         setBreeds(data);
@@ -30,7 +64,9 @@ const Home = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('userEmail'); // Clear user data
+    localStorage.removeItem('token'); // Clear user data
     setUserEmail(null);
+    setFavorites([]);
   };
 
   useEffect(() => {
@@ -63,18 +99,46 @@ const Home = () => {
     setCurrentPage(1); // Reset pagination to the first page
   };
 
+  const toggleFavorite = async (breed) => {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        setActiveTab('login'); // Redirect to login if not authenticated
+        return;
+      }
+  
+      // Make API request to toggle favorite status
+      const response = await axios.post(
+        'https://web422-backend.onrender.com/api/users/favorites',
+        {
+          itemId: breed.name,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+  
+      // Update local state based on the response
+      setFavorites((prevFavorites) => {
+        if (prevFavorites.includes(breed.name)) {
+          return prevFavorites.filter((id) => id !== breed.name);
+        } else {
+          return [...prevFavorites, breed.name];
+        }
+      });
+    } catch (error) {
+      console.error('Failed to toggle favorite:', error);
+      // Handle error appropriately (e.g., show an error message)
+    }
+  };
+  
+  
+
   const handlePageChange = (page) => {
     setCurrentPage(page);
-  };
-  const toggleFavorite = (breed) => {
-    // Add or remove breed from favorites
-    setFavorites((prevFavorites) => {
-      if (prevFavorites.includes(breed.name)) {
-        return prevFavorites.filter((name) => name !== breed.name);
-      } else {
-        return [...prevFavorites, breed.name];
-      }
-    });
   };
 
   const renderBreeds = (breedsToDisplay) => {
