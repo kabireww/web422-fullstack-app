@@ -70,10 +70,6 @@ const Home = () => {
     setFavorites([]);
   };
 
-  useEffect(() => {
-    const storedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
-    setFavorites(storedFavorites);
-  }, []);
 
 
   useEffect(() => {
