@@ -48,6 +48,7 @@ const Home = () => {
       }
     };
   
+    setLoggedInUser();
     fetchFavorites();
   }, []);
   
@@ -73,6 +74,7 @@ const Home = () => {
     const storedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
     setFavorites(storedFavorites);
   }, []);
+
 
   useEffect(() => {
     if (query === '') {
